@@ -32,24 +32,30 @@ interface ChatInterfaceProps {
 }
 
 const models = [
-  { name: "OpenAI: ChatGPT-4o", value: "openai/chatgpt-4o-latest" },
-  { name: "OpenAI: GPT-4 Turbo", value: "openai/gpt-4-turbo" },
-  { name: "OpenAI: GPT-3.5 Turbo", value: "openai/gpt-3.5-turbo" },
-  { name: "OpenAI: GPT-4o-mini", value: "openai/gpt-4o-mini" },
-  {
-    name: "OpenAI: o1-mini",
-    value: "openai/o1-mini",
-  },
+  { name: "OpenAI: ChatGPT-4o", value: "openai/chatgpt-4o-latest", cost: 0.1 },
+  { name: "OpenAI: GPT-4 Turbo", value: "openai/gpt-4-turbo", cost: 0.08 },
+  { name: "OpenAI: GPT-3.5 Turbo", value: "openai/gpt-3.5-turbo", cost: 0.05 },
+  { name: "OpenAI: GPT-4o-mini", value: "openai/gpt-4o-mini", cost: 0.07 },
+  { name: "OpenAI: o1-mini", value: "openai/o1-mini", cost: 0.06 },
   {
     name: "Anthropic: Claude 3.5 Sonnet",
     value: "anthropic/claude-3.5-sonnet",
+    cost: 0.09,
   },
   {
     name: "Anthropic: Claude 3 Haiku",
     value: "anthropic/claude-3-haiku",
+    cost: 0.04,
   },
-  { name: "Anthropic: Claude 3 Opus", value: "anthropic/claude-3-opus" },
+  {
+    name: "Anthropic: Claude 3 Opus",
+    value: "anthropic/claude-3-opus",
+    cost: 0.11,
+  },
 ];
+
+// Sort models by cost in ascending order
+models.sort((a, b) => a.cost - b.cost);
 
 const ACCEPTED_FILE_TYPES = `
   .pdf,.doc,.docx,.xls,.xlsx,.csv,
