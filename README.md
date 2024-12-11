@@ -25,13 +25,13 @@ LumeAI is a state-of-the-art, multimodal chat application built with Next.js, le
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/LumeAI.git
+   git clone https://github.com/c-w-d-harshit/lume-ai.git
    ```
 
 2. Change to the project directory:
 
    ```bash
-   cd LumeAI
+   cd lume-ai
    ```
 
 3. Install the dependencies:
