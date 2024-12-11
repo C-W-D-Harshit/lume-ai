@@ -141,11 +141,16 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
 
   const handleAttachment = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const newFiles = Array.from(e.target.files);
+      const newFiles = Array.from(e.target.files).filter((file) =>
+        file.type.startsWith("image/")
+      );
       setAttachments((prev) => [...prev, ...newFiles]);
-    }
-    if (e.target.files) {
-      setFiles(e.target.files);
+      if (
+        e.target.files.length > 0 &&
+        e.target.files[0].type.startsWith("image/")
+      ) {
+        setFiles(e.target.files);
+      }
     }
   };
 
@@ -189,6 +194,12 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
             if (file) {
               preventDefault = true;
               setAttachments((prev) => [...prev, file]);
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(file);
+              if (fileInputRef.current) {
+                fileInputRef.current.files = dataTransfer.files;
+                setFiles(dataTransfer.files);
+              }
             }
           }
         }
@@ -199,6 +210,8 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
     },
     []
   );
+
+  console.log("files", files);
 
   // const handleEditMessage = (index: number, newContent: string) => {
   //   const newMessages = [...messages];
