@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import { Toaster } from "@/components/ui/toaster";
+import LayoutProvider from "@/components/layout-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,14 +39,18 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex h-screen bg-background text-foreground">
-            <Sidebar className="flex-shrink-0" />
-            <main className="flex-1 flex flex-col overflow-hidden">
-              <Header />
-              {children}
-            </main>
-          </div>
-          <Toaster />
+          <LayoutProvider>
+            <>
+              <div className="flex h-screen bg-background text-foreground">
+                <Sidebar className="flex-shrink-0" />
+                <main className="flex-1 flex flex-col overflow-hidden">
+                  <Header />
+                  {children}
+                </main>
+              </div>
+              <Toaster />
+            </>
+          </LayoutProvider>
         </ThemeProvider>
       </body>
     </html>

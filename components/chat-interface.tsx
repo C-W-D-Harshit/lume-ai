@@ -264,9 +264,11 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
 
   // get the messages from local storage
   useEffect(() => {
-    const messages = localStorage.getItem(`messages-${chatId}`);
-    if (messages) {
-      setMessages(JSON.parse(messages));
+    if (chatId) {
+      const messages = localStorage.getItem(`messages-${chatId}`);
+      if (messages) {
+        setMessages(JSON.parse(messages));
+      }
     }
   }, [chatId, setMessages]);
 
