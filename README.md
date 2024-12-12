@@ -2,6 +2,8 @@
 
 LumeAI is a state-of-the-art, multimodal chat application built with Next.js, leveraging the latest advancements in AI to deliver a smooth and engaging user experience.
 
+![LumeAI Logo](https://www.lumeai.xyz/og.png)
+
 ## Features
 
 - Real-time chat interface with AI-powered responses
