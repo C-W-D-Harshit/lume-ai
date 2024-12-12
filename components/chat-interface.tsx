@@ -26,6 +26,9 @@ import { ChatMessage } from "./chat-message";
 import { VariableSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { WelcomeScreen } from "./welcome-screen";
+import Cookies from "js-cookie";
+import { toast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 interface ChatInterfaceProps {
   chatId?: string;
@@ -35,7 +38,7 @@ const models = [
   { name: "OpenAI: ChatGPT-4o", value: "openai/chatgpt-4o-latest", cost: 0.1 },
   { name: "OpenAI: GPT-4 Turbo", value: "openai/gpt-4-turbo", cost: 0.08 },
   { name: "OpenAI: GPT-3.5 Turbo", value: "openai/gpt-3.5-turbo", cost: 0.05 },
-  { name: "OpenAI: GPT-4o-mini", value: "openai/gpt-4o-mini", cost: 0.07 },
+  { name: "OpenAI: GPT-4o-mini", value: "openai/gpt-4o-mini", cost: 0.0 },
   { name: "OpenAI: o1-mini", value: "openai/o1-mini", cost: 0.06 },
   {
     name: "Anthropic: Claude 3.5 Sonnet",
@@ -163,6 +166,20 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const apiKey = Cookies.get("openAIKey");
+    if (!apiKey) {
+      toast({
+        title: "No API Key Found",
+        description: "Please set your API key in the preferences.",
+        variant: "destructive",
+        action: (
+          <Link href="/settings">
+            <Button variant="outline">Go to Settings</Button>
+          </Link>
+        ),
+      });
+      return;
+    }
     if (attachments.length > 0) {
       console.log("Attachments:", attachments);
     }
