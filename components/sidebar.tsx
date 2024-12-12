@@ -84,7 +84,7 @@ export default function Sidebar({ className }: SidebarProps) {
 
       <ScrollArea className="flex-1 px-2">
         <div className="space-y-1">
-          {chats.map((chat) => (
+          {chats?.map((chat) => (
             <div key={chat.id} className="flex items-center">
               <Button
                 variant="ghost"

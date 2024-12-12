@@ -29,6 +29,7 @@ import { WelcomeScreen } from "./welcome-screen";
 import Cookies from "js-cookie";
 import { toast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { useChats } from "@/hooks/use-chats";
 
 interface ChatInterfaceProps {
   chatId?: string;
@@ -87,15 +88,25 @@ const estimateMessageHeight = (message: any) => {
 
 export default function ChatInterface({ chatId }: ChatInterfaceProps) {
   const [model, setModel] = useState(models[0].value);
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat",
-    id: chatId,
-    credentials: "include",
-    experimental_throttle: 200,
-    body: {
-      model: model,
-    },
-  });
+  const { updateChat } = useChats();
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      api: "/api/chat",
+      id: chatId,
+      credentials: "include",
+      experimental_throttle: 200,
+      body: {
+        model: model,
+      },
+      onFinish: (message) => {
+        if (chatId) {
+          const title =
+            message.content.slice(0, 20) +
+            (message.content.length > 30 ? "..." : "");
+          updateChat(chatId, { title });
+        }
+      },
+    });
   const [attachments, setAttachments] = useState<File[]>([]);
   const [files, setFiles] = useState<FileList | undefined>(undefined);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -180,9 +191,6 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
       });
       return;
     }
-    if (attachments.length > 0) {
-      console.log("Attachments:", attachments);
-    }
     handleSubmit(e, {
       experimental_attachments: files,
     });
@@ -246,6 +254,21 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
       listRef.current?.scrollToItem(messages.length - 1, "end");
     }
   }, [messages]);
+
+  // store the messages in local storage
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
+    }
+  }, [messages, chatId]);
+
+  // get the messages from local storage
+  useEffect(() => {
+    const messages = localStorage.getItem(`messages-${chatId}`);
+    if (messages) {
+      setMessages(JSON.parse(messages));
+    }
+  }, [chatId, setMessages]);
 
   return (
     <div className="flex flex-col flex-1">

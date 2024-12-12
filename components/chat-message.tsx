@@ -54,7 +54,7 @@ export function ChatMessage({ message, onHeightChange }: ChatMessageProps) {
       </Avatar>
       <div
         className={cn(
-          "flex flex-col gap-2 w-full max-w-[70%]",
+          "flex flex-col gap-2 max-w-[70%]",
           isUser && "items-end w-fit"
         )}
       >
