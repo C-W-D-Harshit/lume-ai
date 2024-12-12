@@ -13,19 +13,19 @@ import { KeyIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function ApiKeyPopover() {
-  const [openAIKey, setOpenAIKey] = useState("");
+  const [openRouterApiKey, setopenRouterApiKey] = useState("");
   const [anthropicKey, setAnthropicKey] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
-    const storedOpenAIKey = localStorage.getItem("openAIKey");
+    const storedopenRouterApiKey = localStorage.getItem("openRouterApiKey");
     const storedAnthropicKey = localStorage.getItem("anthropicKey");
-    if (storedOpenAIKey) setOpenAIKey(storedOpenAIKey);
+    if (storedopenRouterApiKey) setopenRouterApiKey(storedopenRouterApiKey);
     if (storedAnthropicKey) setAnthropicKey(storedAnthropicKey);
   }, []);
 
   const saveKeys = () => {
-    localStorage.setItem("openAIKey", openAIKey);
+    localStorage.setItem("openRouterApiKey", openRouterApiKey);
     localStorage.setItem("anthropicKey", anthropicKey);
     toast({
       title: "API Keys Saved",
@@ -49,8 +49,8 @@ export function ApiKeyPopover() {
               <Input
                 id="openai-key"
                 type="password"
-                value={openAIKey}
-                onChange={(e) => setOpenAIKey(e.target.value)}
+                value={openRouterApiKey}
+                onChange={(e) => setopenRouterApiKey(e.target.value)}
                 placeholder="Enter your OpenAI API key"
               />
             </div>

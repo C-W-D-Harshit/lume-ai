@@ -22,17 +22,17 @@ import {
 } from "@/components/ui/tooltip";
 
 export function ApiKeysForm() {
-  const [openAIKey, setOpenAIKey] = useState("");
+  const [openRouterApiKey, setopenRouterApiKey] = useState("");
   const [showKeys, setShowKeys] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    const storedOpenAIKey = Cookies.get("openAIKey");
-    if (storedOpenAIKey) setOpenAIKey(storedOpenAIKey);
+    const storedopenRouterApiKey = Cookies.get("openRouterApiKey");
+    if (storedopenRouterApiKey) setopenRouterApiKey(storedopenRouterApiKey);
   }, []);
 
   const saveKeys = () => {
-    if (!openAIKey) {
+    if (!openRouterApiKey) {
       toast({
         title: "No API Keys Provided",
         description: "Please enter at least one API key.",
@@ -41,7 +41,7 @@ export function ApiKeysForm() {
       return;
     }
 
-    Cookies.set("openAIKey", openAIKey, { expires: 365 });
+    Cookies.set("openRouterApiKey", openRouterApiKey, { expires: 365 });
     toast({
       title: "API Keys Saved",
       description: "Your API keys have been securely saved.",
@@ -94,8 +94,8 @@ export function ApiKeysForm() {
             <Input
               id="openai-key"
               type={showKeys ? "text" : "password"}
-              value={openAIKey}
-              onChange={(e) => setOpenAIKey(e.target.value)}
+              value={openRouterApiKey}
+              onChange={(e) => setopenRouterApiKey(e.target.value)}
               placeholder="sk-..."
               className="font-mono bg-background"
             />

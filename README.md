@@ -18,7 +18,7 @@ LumeAI is a state-of-the-art, multimodal chat application built with Next.js, le
 
 - Node.js (v14 or later)
 - npm or yarn
-- An OpenAI API key
+- An [OpenRouter](https://openrouter.ai/) API key
 
 ## Installation
 

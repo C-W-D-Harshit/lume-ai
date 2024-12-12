@@ -177,7 +177,7 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const apiKey = Cookies.get("openAIKey");
+    const apiKey = Cookies.get("openRouterApiKey");
     if (!apiKey) {
       toast({
         title: "No API Key Found",

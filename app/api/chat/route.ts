@@ -59,7 +59,7 @@ const DEFAULT_PREFERENCES = {
 
 export async function POST(req: Request) {
   const cookieStore = cookies();
-  const openAIKey = cookieStore.get("openAIKey");
+  const openRouterApiKey = cookieStore.get("openRouterApiKey");
   const preferences = cookieStore.get("preferences");
   const preferencesData = preferences?.value
     ? (JSON.parse(preferences.value) as Preferences)
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
   const { messages, model: modelName } = await req.json();
   const model = createModel({
     baseURL: "https://openrouter.ai/api/v1",
-    apiKey: openAIKey?.value,
+    apiKey: openRouterApiKey?.value,
   });
 
   const result = streamText({
