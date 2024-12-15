@@ -56,6 +56,31 @@ const models = [
     value: "anthropic/claude-3-opus",
     cost: 0.11,
   },
+  {
+    name: "Google: Gemini 1.5 Flash-8B",
+    value: "google/gemini-flash-1.5-8b",
+    cost: 0.03,
+  },
+  {
+    name: "Meta: Llama 3.1 8B Instruct",
+    value: "meta-llama/llama-3.1-8b-instruct",
+    cost: 0.035,
+  },
+  {
+    name: "Google: Gemma 2 27B",
+    value: "google/gemma-2-27b-it",
+    cost: 0.27,
+  },
+  {
+    name: "xAI: Grok 2",
+    value: "x-ai/grok-2",
+    cost: 0.07,
+  },
+  {
+    name: "OpenAI: o1-preview",
+    value: "openai/o1-preview",
+    cost: 37.5,
+  },
 ];
 
 // Sort models by cost in ascending order
