@@ -92,6 +92,23 @@ export function ChatMessage({ message, onHeightChange }: ChatMessageProps) {
                 ))}
               </div>
             )}
+          {message.toolInvocations && (
+            <div className="mt-2 space-y-2">
+              {message.toolInvocations
+                .filter((toolInvocation) => toolInvocation.state === "result")
+                .map((toolInvocation, index) => (
+                  <div key={index}>
+                    <Image
+                      src={toolInvocation.result}
+                      alt="tool invocation"
+                      width={500}
+                      height={500}
+                      className="rounded-md max-w-full h-auto"
+                    />
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

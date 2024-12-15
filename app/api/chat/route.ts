@@ -1,7 +1,8 @@
 import { createOpenAI as createModel } from "@ai-sdk/openai";
-import { streamText } from "ai";
+import { streamText, tool } from "ai";
 import { cookies } from "next/headers";
-
+import OpenAI from "openai";
+import { z } from "zod";
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
@@ -66,6 +67,7 @@ export async function POST(req: Request) {
     : DEFAULT_PREFERENCES;
 
   const { messages, model: modelName } = await req.json();
+
   const model = createModel({
     baseURL: "https://openrouter.ai/api/v1",
     apiKey: openRouterApiKey?.value,
@@ -79,6 +81,26 @@ export async function POST(req: Request) {
     topP: preferencesData.topP,
     topK: preferencesData.topK,
     maxTokens: preferencesData.maxTokens,
+    tools: {
+      imageGeneration: tool({
+        description:
+          "generate an image based on a given prompt and then give it back to user in an image format in md",
+        parameters: z.object({
+          prompt: z.string(),
+        }),
+        execute: async ({ prompt }) => {
+          const openai = new OpenAI();
+          const response = await openai.images.generate({
+            model: "dall-e-3",
+            prompt: prompt,
+            n: 1,
+            size: "1024x1024",
+          });
+          const image_url = response.data[0].url;
+          return image_url;
+        },
+      }),
+    },
   });
 
   return result.toDataStreamResponse();

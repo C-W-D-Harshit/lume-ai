@@ -81,6 +81,13 @@ const models = [
     value: "openai/o1-preview",
     cost: 37.5,
   },
+  // add dall-e-3
+  {
+    name: "OpenAI: dall-e-3",
+    value: "dall-e-3",
+    cost: 0.015,
+    openai: true,
+  },
 ];
 
 // Sort models by cost in ascending order
@@ -122,6 +129,7 @@ export default function ChatInterface({ chatId }: ChatInterfaceProps) {
       experimental_throttle: 200,
       body: {
         model: model,
+        openai: models.find((m) => m.value === model)?.openai,
       },
       onFinish: (message) => {
         if (chatId) {
