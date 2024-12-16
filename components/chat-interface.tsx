@@ -37,6 +37,11 @@ interface ChatInterfaceProps {
 
 const models = [
   { name: "OpenAI: ChatGPT-4o", value: "openai/chatgpt-4o-latest", cost: 0.1 },
+  {
+    name: "OpenAI: GPT-4o (2024-11-20)",
+    value: "openai/gpt-4o-2024-11-20",
+    cost: 0.1,
+  },
   { name: "OpenAI: GPT-4 Turbo", value: "openai/gpt-4-turbo", cost: 0.08 },
   { name: "OpenAI: GPT-3.5 Turbo", value: "openai/gpt-3.5-turbo", cost: 0.05 },
   { name: "OpenAI: GPT-4o-mini", value: "openai/gpt-4o-mini", cost: 0.0 },
