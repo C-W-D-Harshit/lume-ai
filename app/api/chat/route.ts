@@ -1,5 +1,6 @@
-import { createOpenAI as createModel } from "@ai-sdk/openai";
+// import { createOpenAI as createModel } from "@ai-sdk/openai";
 import { streamText, tool } from "ai";
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { cookies } from "next/headers";
 import OpenAI from "openai";
 import { z } from "zod";
@@ -68,13 +69,18 @@ export async function POST(req: Request) {
 
   const { messages, model: modelName } = await req.json();
 
-  const model = createModel({
-    baseURL: "https://openrouter.ai/api/v1",
+  const openrouter = createOpenRouter({
     apiKey: openRouterApiKey?.value,
   });
 
+  // const model = createModel({
+  //   baseURL: "https://openrouter.ai/api/v1",
+  //   apiKey: openRouterApiKey?.value,
+  // });
+
   const result = streamText({
-    model: model(modelName),
+    // model: model(modelName),
+    model: openrouter(modelName),
     messages,
     system: preferencesData.systemPrompt,
     temperature: preferencesData.temperature,
