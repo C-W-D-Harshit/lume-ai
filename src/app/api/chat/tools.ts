@@ -43,7 +43,7 @@ Examples:
 Example 1:
 Input: "I prefer emails over calls for updates."
 Reasoning: Extract the preference for emails over calls, check if it's unique, and add it to the memory array.
-Output: ["I prefer emails over calls for updates."]
+Output: ["User prefers emails over calls for updates."]
 Example 2:
 Input: "What's the weather like today?"
 Reasoning: Recognize the query as off-topic and respond with the predefined message.
