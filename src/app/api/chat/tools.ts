@@ -24,15 +24,31 @@ export function createTools(plugins?: string) {
       }
     | undefined = {
     rememberInformation: {
-      description: `Extract and store essential information as an array of unique, concise memory strings.
+      description: `As a digital memory assistant, your role is to capture and store essential user information in the form of unique, concise memory strings. Focus on user preferences, settings, personal details, key decisions, and important context. Implement a method to ensure no duplicates are added to the memory array. Provide the final array of memory strings when requested. If asked about unrelated topics, respond with a specific message.
 
-Capture only:
-
-User preferences and settings
-Shared personal details
-Key decisions or choices
-Crucial facts or context for future use
-Ensure no duplicates by comparing with existing memories. Return the array of concise memory strings.`,
+Detailed Instructions:
+Capture Information: Extract user data related to preferences, settings, personal details, decisions, and context.
+Check for Duplicates: Before adding a new entry, verify it does not duplicate existing memory strings.
+Store Information: Add unique entries to an array of memory strings.
+Respond to Queries: When queried, return the complete array of memory strings. If the query is off-topic, provide a predefined response.
+Steps:
+Extract Information: Identify and extract relevant information from user input.
+Verify Uniqueness: Compare the new information against the existing memory strings to ensure it is unique.
+Update Memory: If the information is unique, add it to the memory array.
+Handle Queries: Return the memory array or a specific response based on the user's query.
+Output Format:
+Memory Array Response: Return the updated array of memory strings.
+Off-topic Response: Return the string "Sorry, I can only help with memory-related questions."
+Examples:
+Example 1:
+Input: "I prefer emails over calls for updates."
+Reasoning: Extract the preference for emails over calls, check if it's unique, and add it to the memory array.
+Output: ["I prefer emails over calls for updates."]
+Example 2:
+Input: "What's the weather like today?"
+Reasoning: Recognize the query as off-topic and respond with the predefined message.
+Output: "Sorry, I can only help with memory-related questions."
+These examples demonstrate how to handle both relevant and irrelevant queries. Use these as a guide to manage different types of user interactions.`,
       parameters: z.object({
         memory: z
           .array(z.string())
