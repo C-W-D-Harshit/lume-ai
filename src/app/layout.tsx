@@ -6,6 +6,8 @@ import LayoutProvider from "@/components/LayoutProvider";
 import { Toaster } from "@/components/ui/sonner";
 import Onboarding from "@/components/Onboarding";
 import { Analytics } from "@vercel/analytics/react";
+import { Suspense } from "react";
+import { CSPostHogProvider } from "@/components/providers/PosthogProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -123,17 +125,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          forcedTheme="dark"
-          disableTransitionOnChange
-        >
-          <LayoutProvider>{children}</LayoutProvider>
-          <Toaster />
-          <Onboarding />
-        </ThemeProvider>
-        <Analytics />
+        <Suspense>
+          <CSPostHogProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              forcedTheme="dark"
+              disableTransitionOnChange
+            >
+              <LayoutProvider>{children}</LayoutProvider>
+              <Toaster />
+              <Onboarding />
+            </ThemeProvider>
+            <Analytics />
+          </CSPostHogProvider>
+        </Suspense>
       </body>
     </html>
   );
